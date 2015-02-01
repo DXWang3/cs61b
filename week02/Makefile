@@ -9,6 +9,9 @@ OBJECTS_WILDCARD := $(OBJECT_DIR)/*.class
 default: $(OBJECTS)
 	@echo -n
 
+clean:
+	rm -f -- *.class
+
 %.class: %.java
 	javac $(SOURCES)
 
