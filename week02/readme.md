@@ -10,7 +10,7 @@ File: [`Swap.java`](Swap.java)
 ```java
 class Swap {
     public static void swap(int a, int b) {
-        int temp = a;
+        int temp = b;
         b = a;
         a = temp;
     }
@@ -28,6 +28,18 @@ class Swap {
 
 ## What’s different here?
 
+File: [`Point.java`](Point.java)
+
+```java
+class Point {
+    int x;
+    int y;
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+```
 File: [`Swap2.java`](Swap2.java)
 
 ```java

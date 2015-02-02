@@ -1,6 +1,6 @@
 class Swap {
     public static void swap(int a, int b) {
-        int temp = a;
+        int temp = b;
         b = a;
         a = temp;
     }
