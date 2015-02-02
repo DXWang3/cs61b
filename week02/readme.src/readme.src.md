@@ -16,7 +16,7 @@ starting at the *second* node. (So for example, 1, 2, 3, becomes 1, 3.)
 --- code java IntList.java
 
 
-## Extra Practice: What does mystery do?
+## Extra Practice: What does `mystery` do?
 Hint: draw box and pointers.
 
 --- code java IntList2.java

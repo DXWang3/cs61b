@@ -1,6 +1,6 @@
 ## What’s wrong with this picture?
 
-[Swap.java](Swap.java)
+File: [`Swap.java`](Swap.java)
 
 ```java
 class Swap {
@@ -23,7 +23,7 @@ class Swap {
 
 ## What’s different here?
 
-[Swap2.java](Swap2.java)
+File: [`Swap2.java`](Swap2.java)
 
 ```java
 class Swap2 {
@@ -48,7 +48,7 @@ class Swap2 {
 starting at the *second* node. (So for example, 1, 2, 3, becomes 1, 3.)  
 **Do NOT use recursion.**
 
-[IntList.java](IntList.java)
+File: [`IntList.java`](IntList.java)
 
 ```java
 public class IntList {
@@ -75,25 +75,25 @@ public class IntList {
 ```
 
 
-## Extra Practice: What does mystery do?
+## Extra Practice: What does `mystery` do?
 Hint: draw box and pointers.
 
-[IntList2.java](IntList2.java)
+File: [`IntList2.java`](IntList2.java)
 
 ```java
 public class IntList2 {
     public int head;
-    public IntList tail;
+    public IntList2 tail;
 
-    public IntList(int head0, IntList tail0) {
+    public IntList2(int head0, IntList2 tail0) {
         head = head0; tail = tail0;
     }
 
-    public static IntList mystery(IntList L) {
+    public static IntList2 mystery(IntList2 L) {
         if (L == null || L.tail == null) {
             return L;
         } else {
-            IntList x = mystery(L.tail);
+            IntList2 x = mystery(L.tail);
             L.tail.tail = L;
             L.tail = null;
             return x;
@@ -102,7 +102,7 @@ public class IntList2 {
 
     public String toString() {
         String result = "";
-        IntList y = this;
+        IntList2 y = this;
         while (y != null) {
             result = result + y.head + " ";
             y = y.tail;
@@ -111,9 +111,9 @@ public class IntList2 {
     }
 
     public static void main(String[] args) {
-        IntList x = new IntList(2, new IntList(3, new IntList(4, new IntList(5, null))));
+        IntList2 x = new IntList2(2, new IntList2(3, new IntList2(4, new IntList2(5, null))));
         System.out.println(x);
-        IntList y = mystery(x);
+        IntList2 y = mystery(x);
         System.out.println(y);
     }
 }

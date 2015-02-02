@@ -20,10 +20,10 @@ def main():
         if m:
             lang = m.group(1)
             fname = m.group(2)
-            stdout.write('[' + fname + '](' + fname + ')\n\n')
-            stdout.write('```' + lang + '\n')
+            stdout.write('''File: [`%(fname)s`](%(fname)s)\n\n''' % locals())
+            stdout.write('''```%(lang)s\n''' % locals())
             stdout.write(open(fname).read())
-            stdout.write('```\n')
+            stdout.write('''```\n''')
             continue
 
         stdout.write(line)
