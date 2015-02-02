@@ -1,3 +1,8 @@
+[[Printable PDF](http://csmberkeley.github.io/cs61b/week02/readme.pdf)]
+
+# CSM Berkeley 61B, Spring 2015: Week 2
+
+
 ## What’s wrong with this picture?
 
 File: [`Swap.java`](Swap.java)
@@ -43,12 +48,13 @@ class Swap2 {
 ```
 
 
+
 ## Write `skip`
 `skip` takes in an IntList and destructively removes every other IntList node,
 starting at the *second* node. (So for example, 1, 2, 3, becomes 1, 3.)  
 **Do NOT use recursion.**
 
-File: [`IntList.java`](IntList.java)
+File: [`IntList.java`](IntList.java) &middot; [`soln/IntList.java`](soln/IntList.java)
 
 ```java
 public class IntList {
@@ -73,6 +79,7 @@ public class IntList {
 
 }
 ```
+
 
 
 ## Extra Practice: What does `mystery` do?
