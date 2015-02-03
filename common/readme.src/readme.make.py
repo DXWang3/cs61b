@@ -12,6 +12,25 @@ def make_absolute_url(path3):
     return join(path1, path2, path3)
 
 
+def file_segments(file, lang):
+    text = ''
+    for line in file:
+        if '-- -- --' in line:
+            yield text
+            text = ''
+        else:
+            text += line
+    yield text
+
+
+def format_file_segments(file, lang):
+    for segment in file_segments(file, lang):
+        s = '''```%(lang)s\n''' % locals()
+        s += segment
+        s += '''```\n'''
+        yield s
+
+
 def main(mode='md'):
     from sys import stdin, stdout
     from re import match
@@ -21,9 +40,10 @@ def main(mode='md'):
 
     chdir('..')
 
+    yield_segment = None
 
     for line in stdin:
-        m = match(r'---\s+header\s+', line)
+        m = match(r'---\s+header\s*', line)
         if m:
             n = match(r'.*?(\d+)\s*$', dirname(realpath(__file__)))
             weeknum = int(n.group(1))
@@ -55,9 +75,13 @@ def main(mode='md'):
                 if exists(soln_fname):
                     soln = ''' &middot; [`%(soln_fname)s`](%(soln_fname)s)''' % locals()
             stdout.write('''File: [`%(fname)s`](%(url)s)%(soln)s\n\n''' % locals())
-            stdout.write('''```%(lang)s\n''' % locals())
-            stdout.write(open(fname).read())
-            stdout.write('''```\n''')
+            yield_segment = format_file_segments(open(fname), lang)
+            stdout.write(next(yield_segment))
+            continue
+
+        m = match(r'---\s+yield\s*', line)
+        if m:
+            stdout.write(next(yield_segment))
             continue
 
         m = match(r'---\s+onlyin\s+(.*?)\s+(.*)$', line)
