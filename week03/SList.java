@@ -24,11 +24,21 @@ public class SList {
             result += cur.item.toString() + " ";
         return result;
     }
+    public static Object findMiddle(SList list) {
+        SListNode slowJumper = list.head;
+        SListNode fastJumper = list.head;
+        while (fastJumper != null && fastJumper.next != null && fastJumper.next.next != null) {
+            slowJumper = slowJumper.next;
+            fastJumper = fastJumper.next.next;
+        }
+        return slowJumper.item;
+    }
+
 
     public static void main(String[] args) {
-        System.out.println(l.isEmpty());
-        SList l = new SList(new SListNode(1, new SListNode(2, new SListNode(3))));
+        SList l = new SList(new SListNode(1, new SListNode(2, new SListNode(3,new SListNode(4)))));
         System.out.println(l);
+        System.out.println(findMiddle(l));
         System.out.println(l.isEmpty());
     }
 }
