@@ -15,5 +15,8 @@ clean:
 %.class: %.java
 	javac $(SOURCES)
 
+%: %.java
+	javac $<
+
 
 .PHONY: default
