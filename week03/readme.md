@@ -4,7 +4,7 @@
 
 
 
-## What’s wrong with these sum functions?
+## 1. What's wrong with these sum functions?
 
 File: [`BuggySums.java`](BuggySums.java)
 
@@ -51,7 +51,7 @@ class BuggySums {
 
 
 
-## Write `middle`, which takes in array of `int`s and returns the middle element.
+## 2. Write `middle`, which takes in array of `int`s and returns the middle element.
 If not element is in the exact middle, return the one to the left of the middle. Don't overthink this.
 
 File: [`ArrayExample.java`](ArrayExample.java) &middot; [`soln/ArrayExample.java`](soln/ArrayExample.java)
@@ -105,7 +105,7 @@ class ArrayExample {
 
 
 
-## Write `middle`, for `SList`s.
+## 3. Write `middle`, for `SList`s.
 Hint: why are our pointers called slow and fast?  
 If not element is in the exact middle, return the one to the left of the middle.
 
@@ -164,13 +164,11 @@ class SListNode {
 
 
 
-# Spot the bug! (extra time)
+# 4. Spot the bug! (extra time)
 
 File: [`IntListBug.java`](IntListBug.java)
 
 ```java
-// TODO: This file contains (unintentional) errors.
-
 class IntListBug {
 
     /**
@@ -178,30 +176,48 @@ class IntListBug {
       * elements of B. May NOT modify items of A.
       */
     public static IntList buggyCatenate(IntList A, IntList B) {
+
         IntList C = new IntList(A.head, A.tail);
 
         IntList list2 = C;
+
         while (list2.tail != null) {
+
             list2 = list2.tail;
+
         }
-        current.tail = B;
+
+        list2.tail = B;
+
         return C;
     }
 
     public static void main(String[] args) {
         IntList A = IntList.list(1, 2, 3);
         IntList B = IntList.list(4, 5, 6);
+
+        System.out.println(A);    // 1 2 3
         IntList C = buggyCatenate(A, B);
+        System.out.println(C);    // 1 2 3 4 5 6  this seems to work
+        System.out.println(A);    // 1 2 3 4 5 6  oh no!
     }
 }
+```
 
-class IntList {
+File: [`IntList.java`](IntList.java)
+
+```java
+public class IntList {
     public int head;
     public IntList tail;
 
-    public IntList(int head, IntList tail) {
-        this.head = head;
-        this.tail = tail;
-    }
+    /** Constructs an IntList from a head int and tail IntList. */
+    public IntList(int head, IntList tail);
+
+    /** Constructs an IntList from the list of arguments. */
+    public static IntList list(Integer... args);
+
+    /** Returns string representation of the IntList. */
+    public String toString();
 }
 ```

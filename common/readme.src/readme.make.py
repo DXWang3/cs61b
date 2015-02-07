@@ -79,6 +79,21 @@ def main(mode='md'):
             stdout.write(next(yield_segment))
             continue
 
+        m = match(r'---\s+code-header\s+(.*?)\s+(.*?)\s+', line)
+        if m:
+            lang = m.group(1)
+            fname = m.group(2)
+            soln = ''
+            if mode == 'tex':
+                url = make_absolute_url(fname)
+            else:
+                url = fname
+                soln_fname = join('soln', fname)
+                if exists(soln_fname):
+                    soln = ''' &middot; [`%(soln_fname)s`](%(soln_fname)s)''' % locals()
+            stdout.write('''File: [`%(fname)s`](%(url)s)%(soln)s\n\n''' % locals())
+            continue
+
         m = match(r'---\s+yield\s*', line)
         if m:
             stdout.write(next(yield_segment))
