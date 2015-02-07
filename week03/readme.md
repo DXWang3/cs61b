@@ -51,7 +51,7 @@ class BuggySums {
 
 
 
-## 2. Write `middle`, which takes in array of `int`s and returns the middle element.
+## 2a. Write `middle`, which takes in array of `int`s and returns the middle element.
 If not element is in the exact middle, return the one to the left of the middle. Don't overthink this.
 
 File: [`ArrayExample.java`](ArrayExample.java) &middot; [`soln/ArrayExample.java`](soln/ArrayExample.java)
@@ -71,7 +71,7 @@ class ArrayExample {
 
 ```
 
-## Write `reverse`, which takes in an array of `int`s and reverses its elements in-place.
+## 2b. Write `reverse`, which takes in an array of `int`s and reverses its elements in-place.
 
 ```java
     public static void reverse(int[] arr) {

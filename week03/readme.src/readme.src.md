@@ -8,12 +8,12 @@
 
 --- onlyin tex \newpage
 
-## 2. Write `middle`, which takes in array of `int`s and returns the middle element.
+## 2a. Write `middle`, which takes in array of `int`s and returns the middle element.
 If not element is in the exact middle, return the one to the left of the middle. Don't overthink this.
 
 --- code java ArrayExample.java
 
-## Write `reverse`, which takes in an array of `int`s and reverses its elements in-place.
+## 2b. Write `reverse`, which takes in an array of `int`s and reverses its elements in-place.
 
 --- yield
 
