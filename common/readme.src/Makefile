@@ -16,7 +16,7 @@ clean:
 
 # Pandoc documentation here: http://johnmacfarlane.net/pandoc/faqs.html
 ../readme.pdf: readme.src.md $(META)
-	python readme.make.py tex < $< > readme.for-pdf.md
+	python readme.make.py soln,tex < $< > readme.for-pdf.md
 	pandoc readme.for-pdf.md --out $@ \
 		--latex-engine=xelatex \
 		-V mainfont='Helvetica' \
