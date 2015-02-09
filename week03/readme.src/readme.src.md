@@ -9,7 +9,7 @@
 --- onlyin tex \newpage
 
 ## 2a. Write `middle`, which takes in array of `int`s and returns the middle element.
-If not element is in the exact middle, return the one to the left of the middle. Don't overthink this.
+If the element is not in the exact middle, return the one to the left of the middle. Don't overthink this.
 
 --- code java ArrayExample.java
 
@@ -22,7 +22,7 @@ If not element is in the exact middle, return the one to the left of the middle.
 
 ## 3. Write `middle`, for `SList`s.
 Hint: why are our pointers called slow and fast?  
-If not element is in the exact middle, return the one to the left of the middle.
+If the element is not in the exact middle, return the one to the left of the middle.
 
 --- code java SList.java
 
