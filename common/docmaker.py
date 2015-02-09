@@ -118,15 +118,15 @@ class Env(object):
 @add_rule('begin onlyfor', 1)
 def rule_begin_onlyfor(line, m, opts, env):
     env.onlyfor_mode = m.group(1)
-    if env.onlyfor_mode == 'soln':
-        out('\\answerbegin\n')
+    # if env.onlyfor_mode == 'soln':
+    #     out('\\answerbegin\n')
     return True
 
 
 @add_rule('end onlyfor')
 def rule_end_onlyfor(line, m, opts, env):
-    if env.onlyfor_mode == 'soln':
-        out('\\answerend\n')
+    # if env.onlyfor_mode == 'soln':
+    #     out('\\answerend\n')
     env.onlyfor_mode = None
     return True
 
