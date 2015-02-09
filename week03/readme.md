@@ -52,7 +52,7 @@ class BuggySums {
 
 
 ## 2a. Write `middle`, which takes in array of `int`s and returns the middle element.
-If not element is in the exact middle, return the one to the left of the middle. Don't overthink this.
+If element is not in the exact middle, return the one to the left of the middle. Don't overthink this.
 
 File: [`ArrayExample.java`](ArrayExample.java) &middot; [`soln/ArrayExample.java`](soln/ArrayExample.java)
 
@@ -107,7 +107,7 @@ class ArrayExample {
 
 ## 3. Write `middle`, for `SList`s.
 Hint: why are our pointers called slow and fast?  
-If not element is in the exact middle, return the one to the left of the middle.
+If element is not in the exact middle, return the one to the left of the middle.
 
 File: [`SList.java`](SList.java) &middot; [`soln/SList.java`](soln/SList.java)
 
