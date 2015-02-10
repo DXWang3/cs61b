@@ -8,7 +8,8 @@ public class SList {
     }
 
     public static Object middle(SList list) {
-
+        IntList slow = list;
+        IntList fast = list;
         while (                        ) {
 
 
