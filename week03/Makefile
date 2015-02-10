@@ -37,6 +37,12 @@ md: $(MD_PROB)
 
 pdf: $(PDF_PROB) $(PDF_SOLN)
 
+echo:
+	@echo $(PDF_PROB)
+	@echo $(PDF_SOLN)
+	@echo $(MD_PROB)
+	@echo $(MD_SOLN)
+
 clean:
 	rm -fv -- $(ALL)
 

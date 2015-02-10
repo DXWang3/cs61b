@@ -2,10 +2,14 @@
 
 ABSOLUTE_URL_PREFIX = 'http://csmberkeley.github.io/cs61b/'
 HEADER_PREFIX = """# CSM Berkeley 61B, Spring 2015: Week"""
+SOLN_HEADER_SUFFIX = " (Solutions)"
 PDF_LINK_TEXT = 'Printable PDF'
 
+from subprocess import check_output
+PDF_PROB, PDF_SOLN, MD_PROB, MD_SOLN = check_output(['make', 'echo']).splitlines()
 
-PREAMBLE = r'''
+
+TEX_PREAMBLE = r'''
 \definecolor{answer_frame_color}{rgb}{0.8, 0.0, 0.0}
 \definecolor{answer_color}{rgb}{0.3, 0.0, 0.0}
 
@@ -25,9 +29,10 @@ PREAMBLE = r'''
 
 
 def make_absolute_url(path3):
-    from os.path import join, split, dirname, realpath
+    from os.path import join, basename
+    from os import getcwd
     path1 = ABSOLUTE_URL_PREFIX
-    path2 = split(dirname(realpath(__file__)))[1]
+    path2 = basename(getcwd())
     return join(path1, path2, path3)
 
 
@@ -77,8 +82,9 @@ def mdcodelink(text, url):
 
 def get_weeknum():
     from re import match
-    from os.path import dirname, realpath
-    n = match(r'.*?(\d+)\s*$', dirname(realpath(__file__)))
+    from os import getcwd
+    from os.path import basename
+    n = match(r'.*?(\d+)\s*$', basename(getcwd()))
     return int(n.group(1))
 
 
@@ -151,10 +157,13 @@ def rule_header(line, m, opts, env):
     weeknum = get_weeknum()
 
     if not 'tex' in env.mode:
-        pdf_url = make_absolute_url('readme.pdf')
+        pdf_url = make_absolute_url(PDF_PROB)
         out('**', mdlink(PDF_LINK_TEXT, pdf_url), '**', '\n\n')
 
-    out(HEADER_PREFIX, ' ', weeknum, '\n\n')
+    out(HEADER_PREFIX, ' ', weeknum)
+    if 'soln' in env.mode:
+        out(SOLN_HEADER_SUFFIX)
+    out('\n\n')
     return True
 
 
@@ -208,14 +217,15 @@ def main(mode_string):
     from sys import stdin
     from re import match
     from os import chdir
-    chdir('..')
+    # chdir('..')
 
     env = Env()
     env.yield_segment = None
     env.mode = parse_mode(mode_string)
     env.onlyfor_mode = None
 
-    out(PREAMBLE, '\n')
+    if 'tex' in env.mode:
+        out(TEX_PREAMBLE, '\n')
     should_continue = False
     for line in stdin:
         for (regex, f) in rules:
