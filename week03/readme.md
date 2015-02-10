@@ -6,7 +6,7 @@
 
 ## 1. What's wrong with these sum functions?
 
-File: [`BuggySums.java`](code/BuggySums.java)
+File: [`BuggySums.java`](code/BuggySums.java) &middot; [solution](code-soln/BuggySums.java)
 
 ```java
 class BuggySums {
@@ -52,7 +52,8 @@ class BuggySums {
 
 
 ## 2a. Write `middle`, which takes in array of `int`s and returns the middle element.
-If no element is in the exact middle, return the one to the left of the middle. Don't overthink this.
+If no element is in the exact middle, return the one to the left of the middle.  
+Don't overthink this! :)
 
 File: [`ArrayExample.java`](code/ArrayExample.java) &middot; [solution](code-soln/ArrayExample.java)
 
@@ -124,10 +125,11 @@ public class SList {
 
     public static Object middle(SList list) {
 
+        SListNode slow = list.head;
+
+        SListNode fast = list.head;
+
         while (                        ) {
-
-
-
 
 
 
@@ -167,7 +169,7 @@ class SListNode {
 
 # 4. Spot the bug! (extra time)
 
-File: [`IntListBug.java`](code/IntListBug.java)
+File: [`IntListBug.java`](code/IntListBug.java) &middot; [solution](code-soln/IntListBug.java)
 
 ```java
 class IntListBug {
