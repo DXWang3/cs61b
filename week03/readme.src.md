@@ -16,7 +16,7 @@
 
 ## 2a. Write `middle`, which takes in array of `int`s and returns the middle element.
 If no element is in the exact middle, return the one to the left of the middle.  
-Don't overthink this! :)
+Don't over-think this! :)
 
 --- code java ArrayExample.java
 
@@ -40,7 +40,11 @@ If no element is in the exact middle, return the one to the left of the middle.
 # 4. Spot the bug! (extra time)
 
 --- code java IntListBug.java
---- soln This step attempts to copy `A` to `C`, but actually only copies over the first node of `A`; the remainder `A.tail` is still linked to `A`. The way to fix this would be use a `while` or `for` loop to copy over *all* the nodes in `A`.
+--- begin soln
+This step attempts to copy `A` to `C`, but actually only copies over the first node of `A`. The rest, `A.tail`, contains the same nodes as `A`. The way to fix this would be to use a loop to copy over *all* the nodes in `A`. For example:
+--- onlyfor soln yield
+--- end soln
 --- onlyfor soln yield
 
+--- newpage soln
 --- code java IntList.java (outline)

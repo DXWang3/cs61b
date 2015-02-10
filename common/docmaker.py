@@ -164,14 +164,14 @@ def rule_end_onlyfor(line, m, opts, env):
 @add_rule('begin soln')
 def rule_begin_soln(line, m, opts, env):
     env.required_mode = parse_mode('soln')
-    if 'tex' in env.mode:
+    if parse_mode('soln,tex') <= env.mode:
         out('\n\\vspace{-0.5em}\\answerbegin\\vspace{-0.5em}\n\n')
     return True
 
 
 @add_rule('end soln')
 def rule_end_soln(line, m, opts, env):
-    if 'tex' in env.mode:
+    if parse_mode('soln,tex') <= env.mode:
         out('\n\\answerend\n\n')
     env.required_mode = None
     return True
@@ -210,6 +210,13 @@ def rule_onlyfor(line, m, opts, env):
 @add_rule('newpage')
 def rule_newpage(line, m, opts, env):
     if 'tex' in env.mode:
+        out('\n\\newpage\n')
+    return True
+
+
+@add_rule('newpage soln')
+def rule_newpage_soln(line, m, opts, env):
+    if parse_mode('tex,soln') <= env.mode:
         out('\n\\newpage\n')
     return True
 

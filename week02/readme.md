@@ -3,7 +3,7 @@
 # CSM Berkeley 61B, Spring 2015: Week 2
 
 
-## What’s wrong with this picture?
+## 1. What's wrong with this picture?
 
 File: [`Swap.java`](code/Swap.java)
 
@@ -26,7 +26,7 @@ class Swap {
 ```
 
 
-## What’s different here?
+## 2. What's different here?
 
 File: [`Point.java`](code/Point.java)
 
@@ -60,9 +60,9 @@ class Swap2 {
 ```
 
 
---- onlyin tex \newpage
 
-## Write `skip`
+
+## 3. Write `skip`
 `skip` takes in an IntList and destructively removes every other IntList node, starting at the *second* node. (So for example, 1, 2, 3, becomes 1, 3.)  
 **Do NOT use recursion.**
 
@@ -94,7 +94,7 @@ public class IntList {
 
 
 
-## Extra Practice: What does `mystery` do?
+## 4. Extra Practice: What does `mystery` do?
 Hint: draw box and pointers.
 
 File: [`IntList2.java`](code/IntList2.java) &middot; [solution](code-soln/IntList2.java)

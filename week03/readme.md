@@ -53,7 +53,7 @@ class BuggySums {
 
 ## 2a. Write `middle`, which takes in array of `int`s and returns the middle element.
 If no element is in the exact middle, return the one to the left of the middle.  
-Don't overthink this! :)
+Don't over-think this! :)
 
 File: [`ArrayExample.java`](code/ArrayExample.java) &middot; [solution](code-soln/ArrayExample.java)
 
@@ -207,7 +207,7 @@ class IntListBug {
 }
 ```
 
-File: [`IntList.java`](code/IntList.java)
+File: [`IntList.java`](code/IntList.java) &middot; [solution](code-soln/IntList.java)
 
 ```java
 public class IntList {
