@@ -15,7 +15,8 @@
 --- newpage
 
 ## 2a. Write `middle`, which takes in array of `int`s and returns the middle element.
-If no element is in the exact middle, return the one to the left of the middle. Don't overthink this.
+If no element is in the exact middle, return the one to the left of the middle.  
+Don't overthink this! :)
 
 --- code java ArrayExample.java
 

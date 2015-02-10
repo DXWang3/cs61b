@@ -4,7 +4,7 @@ class ArrayExample {
     public static int middle(int[] arr) {
         // [ //
 
-        return arr[arr.length/2];
+        return arr[(arr.length - 1)/2];
 
         // ] //
 
