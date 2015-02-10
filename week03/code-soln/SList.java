@@ -8,13 +8,19 @@ public class SList {
     }
 
     public static Object middle(SList list) {
-        SListNode slowJumper = list.head;
-        SListNode fastJumper = list.head;
-        while (fastJumper != null && fastJumper.next != null && fastJumper.next.next != null) {
-            slowJumper = slowJumper.next;
-            fastJumper = fastJumper.next.next;
+
+        SListNode slow = list.head;
+        SListNode fast = list.head;
+
+        // [ //
+        while (fast != null && fast.next != null && fast.next.next != null) {
+
+            slow = slow.next;
+            fast = fast.next.next;
+
         }
-        return slowJumper.item;
+        return slow.item;
+        // ] //
     }
 
     public String toString() {

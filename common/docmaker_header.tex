@@ -1,0 +1,28 @@
+% Define headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lfoot{Find all CSM 61B material online at: \underline{https://github.com/csmberkeley/cs61b}}
+\rfoot{Page \thepage}
+
+% Define colors
+\usepackage{xcolor}
+\definecolor{answer_frame_color}{rgb}{0.8, 0.0, 0.0}
+\definecolor{answer_color}{rgb}{0.0, 0.0, 0.0}
+
+% Define answer box macro
+\newsavebox{\ansbox}
+\newenvironment{answer}
+{\color{answer_frame_color}\begin{lrbox}{\ansbox}\begin{minipage}{\linewidth}
+\setlength{\parskip}{0.8em} % \vspace{-0.8em}
+\color{answer_color}
+\vspace{0.2em}
+}
+{
+\vspace{0.2em}
+\end{minipage}\end{lrbox}\fbox{\usebox{\ansbox}}}
+
+% Alias commands for starting and ending answers so that pandoc doesn't know
+% they're start and end markers
+\newcommand{\answerbegin}{\begin{answer}}
+\newcommand{\answerend}{\end{answer}}

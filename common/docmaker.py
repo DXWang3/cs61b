@@ -1,31 +1,32 @@
 #!/usr/bin/env python
+# Docmaker turns `---`-macros in Markdown into pretty things.
+# Created Jan. 2015 by Sean Zhu for CSM Berkeley.
+# To report bugs, file a GitHub issue or contact sean.zhu@berkeley.edu.
 
 ABSOLUTE_URL_PREFIX = 'http://csmberkeley.github.io/cs61b/'
 HEADER_PREFIX = """# CSM Berkeley 61B, Spring 2015: Week"""
-SOLN_HEADER_SUFFIX = " (Solutions)"
-PDF_LINK_TEXT = 'Printable PDF'
+PDF_PROB_LINK_TEXT = 'Printable PDF'
+PDF_SOLN_LINK_TEXT = 'Solutions PDF'
 
 from subprocess import check_output
 PDF_PROB, PDF_SOLN, MD_PROB, MD_SOLN = check_output(['make', 'echo']).splitlines()
 
 
-TEX_PREAMBLE = r'''
-\definecolor{answer_frame_color}{rgb}{0.8, 0.0, 0.0}
-\definecolor{answer_color}{rgb}{0.3, 0.0, 0.0}
 
-\newsavebox{\ansbox}
-\newenvironment{answer}
-{\color{answer_frame_color}\begin{lrbox}{\ansbox}\begin{minipage}{\linewidth}
-\setlength{\parskip}{0.8em} % \vspace{-0.8em}
-\color{answer_color}
-\vspace{0.2em}
-}
-{
-\vspace{0.2em}
-\end{minipage}\end{lrbox}\fbox{\usebox{\ansbox}}}
-\newcommand{\answerbegin}{\begin{answer}}
-\newcommand{\answerend}{\end{answer}}
-'''
+def make_soln_header_suffix(env):
+    if 'soln' in env.mode:
+        if 'md' in env.mode:
+            return " Solutions"
+        elif 'tex' in env.mode:
+            return " \\textcolor{answer_frame_color}{Solutions}"
+    return ''
+
+
+def make_tex_preamble(env):
+    return (
+        '\\lhead{CSM Berkeley 61B, Spring 2015}\n' +
+        '\\rhead{Week %d%s}\n' % (get_weeknum(), make_soln_header_suffix(env) if 'soln' in env.mode else '')
+    )
 
 
 def make_absolute_url(path3):
@@ -41,43 +42,70 @@ def readfile(fname):
         return f.read()
 
 
-def file_segments(file, lang, no_method_bodies):
+class FileSegment(object):
+    def __init__(self, lang, soln):
+        self.text = ''
+        self.lang = lang
+        self.soln = soln
+
+    def append(self, new_text):
+        self.text += new_text
+
+    def chomp(self):
+        if self.text[-1] == '\n':
+            self.text = self.text[:-1]
+            return '\n'
+        else:
+            return ''
+
+    def to_md(self, env):
+        result = ''
+        if self.soln and 'tex' in env.mode:
+            result += '\n\\answerbegin\n\n'
+        result += cat('```', self.lang, '\n', self.text, '```', '\n')
+        if self.soln and 'tex' in env.mode:
+            result += '\n\\vspace{-0.6em}\\answerend\n\n'
+        return result
+
+def file_segments(file, lang, opts, env):
     from re import match
     inside_method = False
-    text = ''
+    segments = [FileSegment(lang, False)]
     for line in file:
         if '-- -- --' in line:
-            yield text
-            text = ''
+            yield segments
+            segments = [FileSegment(lang, False)]
+            continue
+        if '// [ //' in line:
+            segments.append(FileSegment(lang, 'tex' in env.mode))
+            continue
+        if '// ] //' in line:
+            segments.append(FileSegment(lang, False))
             continue
         if inside_method:
             m = match(r'^    (\}\s*)$', line)
             if m:
-                text += ' ... ' + m.group(1)
+                segments[-1].append(' ... ' + m.group(1))
                 inside_method = False
             continue
-        elif no_method_bodies:
+        elif 'outline' in opts:
             m = match(r'^(    \w.*\{)\s*$', line)
             if m:
-                text += m.group(1)
+                segments[-1].append(m.group(1))
                 inside_method = True
                 continue
 
-        text += line
-    yield text
+        segments[-1].append(line)
+    yield segments
 
 
-def formatted_file_segments(file, lang, no_method_bodies):
-    for segment in file_segments(file, lang, no_method_bodies):
-        yield cat('```', lang, '\n', segment, '```', '\n')
+def formatted_file_segments(file, lang, opts, env):
+    for segments in file_segments(file, lang, opts, env):
+        yield cat(*(segment.to_md(env) for segment in segments))
 
 
 def mdlink(text, url):
     return cat('[', text, '](', url, ')')
-
-
-def mdcodelink(text, url):
-    return cat('[`', text, '`](', url, ')')
 
 
 def get_weeknum():
@@ -123,32 +151,66 @@ class Env(object):
 
 @add_rule('begin onlyfor', 1)
 def rule_begin_onlyfor(line, m, opts, env):
-    env.onlyfor_mode = m.group(1)
-    # if env.onlyfor_mode == 'soln':
-    #     out('\\answerbegin\n')
+    env.required_mode = parse_mode(m.group(1))
     return True
 
 
 @add_rule('end onlyfor')
 def rule_end_onlyfor(line, m, opts, env):
-    # if env.onlyfor_mode == 'soln':
-    #     out('\\answerend\n')
-    env.onlyfor_mode = None
+    env.required_mode = None
+    return True
+
+
+@add_rule('begin soln')
+def rule_begin_soln(line, m, opts, env):
+    env.required_mode = parse_mode('soln')
+    if 'tex' in env.mode:
+        out('\n\\vspace{-0.5em}\\answerbegin\\vspace{-0.5em}\n\n')
+    return True
+
+
+@add_rule('end soln')
+def rule_end_soln(line, m, opts, env):
+    if 'tex' in env.mode:
+        out('\n\\answerend\n\n')
+    env.required_mode = None
     return True
 
 
 @add_rule()
 def rule_inside_onlyfor(line, m, opts, env):
-    if env.onlyfor_mode is not None and env.onlyfor_mode not in env.mode:
+    if env.required_mode and not (env.required_mode <= env.mode):
         return True
+
+
+@add_rule('soln', 1)
+def rule_soln(line, m, opts, env):
+    target_line = m.group(1)
+    if 'soln' in env.mode:
+        if 'tex' in env.mode:
+            out('\n\\vspace{-0.5em}\\answerbegin\\vspace{-0.5em}\n\n')
+        out(target_line, '\n')
+        if 'tex' in env.mode:
+            out('\n\\answerend\n\n')
+    return True
 
 
 @add_rule('onlyfor', 2)
 def rule_onlyfor(line, m, opts, env):
-    target_mode = m.group(1)
+    required_mode = parse_mode(m.group(1))
     target_line = m.group(2)
-    if target_mode in env.mode:
-        out(target_line, '\n')
+    if required_mode <= env.mode:
+        if target_line == 'yield':
+            out(next(env.yield_segment))
+        else:
+            out(target_line, '\n')
+    return True
+
+
+@add_rule('newpage')
+def rule_newpage(line, m, opts, env):
+    if 'tex' in env.mode:
+        out('\n\\newpage\n')
     return True
 
 
@@ -156,13 +218,15 @@ def rule_onlyfor(line, m, opts, env):
 def rule_header(line, m, opts, env):
     weeknum = get_weeknum()
 
-    if not 'tex' in env.mode:
-        pdf_url = make_absolute_url(PDF_PROB)
-        out('**', mdlink(PDF_LINK_TEXT, pdf_url), '**', '\n\n')
+    if 'md' in env.mode:
+        out('**', mdlink(PDF_PROB_LINK_TEXT, make_absolute_url(PDF_PROB)), '**')
+        out(' &middot; ')
+        out('**', mdlink(PDF_SOLN_LINK_TEXT, make_absolute_url(PDF_SOLN)), '**')
+        out('\n\n')
 
     out(HEADER_PREFIX, ' ', weeknum)
     if 'soln' in env.mode:
-        out(SOLN_HEADER_SUFFIX)
+        out(make_soln_header_suffix(env))
     out('\n\n')
     return True
 
@@ -174,23 +238,34 @@ def rule_include(line, m, opts, env):
     return True
 
 
+def mdcode(text):
+    return cat('`', text, '`')
+
+
+def mdurl(fpath, env):
+    if 'tex' in env.mode:
+        return make_absolute_url(fpath)
+    else:
+        return fpath
+
+
 @add_rule('code', 2)
 def rule_code(line, m, opts, env):
     from os.path import exists, join
-
     lang = m.group(1)
     fname = m.group(2)
-    no_method_bodies = 'outline' in opts
-    soln = ''
-    if 'tex' in env.mode:
-        url = make_absolute_url(fname)
-    else:
-        url = fname
-        soln_fname = join('soln', fname)
-        if exists(soln_fname):
-            soln = cat(' &middot; ', mdcodelink(soln_fname, soln_fname))
-    out('File: ', mdcodelink(fname, url), soln, '\n\n')
-    env.yield_segment = formatted_file_segments(open(fname), lang, no_method_bodies)
+    prob_fpath = join('code', fname)
+    soln_fpath = join('code-soln', fname)
+    if 'soln' in env.mode and exists(soln_fpath):
+        prob_fpath = soln_fpath
+        soln_fpath = None
+    out('File: ')
+    out(mdlink(mdcode(fname), mdurl(prob_fpath, env)))
+    if parse_mode('md,prob') <= env.mode and soln_fpath and exists(soln_fpath):
+        out(' &middot; ')
+        out(mdlink('solution', mdurl(soln_fpath, env)))
+    out('\n\n')
+    env.yield_segment = formatted_file_segments(open(prob_fpath), lang, opts, env)
     out(next(env.yield_segment))
     return True
 
@@ -210,22 +285,22 @@ def parse_opts(opts_string):
 
 def parse_mode(mode_string):
     from re import split
-    return split(r',\s*', mode_string)
+    return set(split(r',\s*', mode_string))
 
 
 def main(mode_string):
     from sys import stdin
     from re import match
-    from os import chdir
+    # from os import chdir
     # chdir('..')
 
     env = Env()
     env.yield_segment = None
     env.mode = parse_mode(mode_string)
-    env.onlyfor_mode = None
+    env.required_mode = None
 
     if 'tex' in env.mode:
-        out(TEX_PREAMBLE, '\n')
+        out(make_tex_preamble(env), '\n')
     should_continue = False
     for line in stdin:
         for (regex, f) in rules:

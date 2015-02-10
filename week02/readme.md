@@ -1,11 +1,11 @@
-[[Printable PDF](http://csmberkeley.github.io/cs61b/week02/readme.pdf)]
+**[Printable PDF](http://csmberkeley.github.io/cs61b/week02/csm61b-week02.pdf)** &middot; **[Solutions PDF](http://csmberkeley.github.io/cs61b/week02/csm61b-week02-soln.pdf)**
 
 # CSM Berkeley 61B, Spring 2015: Week 2
 
 
 ## What’s wrong with this picture?
 
-File: [`Swap.java`](Swap.java)
+File: [`Swap.java`](code/Swap.java)
 
 ```java
 class Swap {
@@ -28,7 +28,7 @@ class Swap {
 
 ## What’s different here?
 
-File: [`Point.java`](Point.java)
+File: [`Point.java`](code/Point.java)
 
 ```java
 class Point {
@@ -40,7 +40,7 @@ class Point {
     }
 }
 ```
-File: [`Swap2.java`](Swap2.java)
+File: [`Swap2.java`](code/Swap2.java)
 
 ```java
 class Swap2 {
@@ -60,13 +60,13 @@ class Swap2 {
 ```
 
 
+--- onlyin tex \newpage
 
 ## Write `skip`
-`skip` takes in an IntList and destructively removes every other IntList node,
-starting at the *second* node. (So for example, 1, 2, 3, becomes 1, 3.)  
+`skip` takes in an IntList and destructively removes every other IntList node, starting at the *second* node. (So for example, 1, 2, 3, becomes 1, 3.)  
 **Do NOT use recursion.**
 
-File: [`IntList.java`](IntList.java) &middot; [`soln/IntList.java`](soln/IntList.java)
+File: [`IntList.java`](code/IntList.java) &middot; [solution](code-soln/IntList.java)
 
 ```java
 public class IntList {
@@ -97,7 +97,7 @@ public class IntList {
 ## Extra Practice: What does `mystery` do?
 Hint: draw box and pointers.
 
-File: [`IntList2.java`](IntList2.java)
+File: [`IntList2.java`](code/IntList2.java) &middot; [solution](code-soln/IntList2.java)
 
 ```java
 public class IntList2 {

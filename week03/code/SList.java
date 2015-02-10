@@ -9,10 +9,11 @@ public class SList {
 
     public static Object middle(SList list) {
 
+        SListNode slow = list.head;
+
+        SListNode fast = list.head;
+
         while (                        ) {
-
-
-
 
 
 
