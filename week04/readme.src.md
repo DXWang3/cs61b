@@ -6,18 +6,22 @@
 ## 1. Bit Manipulation
 
 --- code java BitManips.java
-### 1a. Rotate a 32-bit integer by k bits.  Assume that k is less than 32.
+### 1a. Rotate a 32-bit integer left by `k` bits. Assume that `k` is less than 32.
 --- yield
-### 1b. Check if an integer is a multiple of 4 using only the & operator and equality checks. 
+### 1b. Check if an integer is a multiple of 4 using only the `&` operator and equality checks. 
 --- yield
-### 1c. Check if an integer is odd using only bit shifting and equality checks.
+### 1c. Check if an integer is odd <u>using only bit shifting and equality checks</u>.
 Assume that you do not know the number of bits in your number.
 --- yield
 ### 1d. Write a one-line expression equivalent to `x * 35` without using `*, /, or %`.
 --- yield
 
 ### 1e. What does `n & (n - 1) == 0` test? (Fall 2013 Final Exam)
+--- begin soln
+This checks if `n` is a power of 2.
 
+*Why? For anything but a power of 2 minus 1, the most significant bit will stay, and so the result will be nonzero.*
+--- end soln
 
 
 --- newpage
@@ -26,7 +30,7 @@ Assume that you do not know the number of bits in your number.
 
 ### 2a. `SList`s
 
-Write a method that, given an `SList`, an `int j`, and an `int k`, return elements `k`, `k+j`, `k+2*j`, ....
+Write a method that, given an `SList`, an `int` `j`, and an `int` `k`, return an `SList` with elements `k`, `k+j`, `k+2*j`, .... **Do not change the original list.**
 
 --- code java Slist.java
 
@@ -107,3 +111,13 @@ Note that `Collection` has no method implementation of its own. Java knows to lo
 
 ### 4b. Where is the runtime error?
 --- code java RuntimeErrorTest.java
+
+
+
+--- newpage
+
+## 5. Really hard inheritance question
+
+By the way, this is why you've always been told to never have public fields, only public methods.
+
+--- code java SpecialVariable.java

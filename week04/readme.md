@@ -8,15 +8,13 @@
 
 ## 1. Bit Manipulation
 
-File: [`BitManips.java`](code/BitManips.java)
+File: [`BitManips.java`](code/BitManips.java) &middot; [solution](code-soln/BitManips.java)
 
-\vspace{-0.5em}
 ```java
 public class BitManips {
 
 ```
-### 1a. Rotate a 32-bit integer by k bits.  Assume that k is less than 32.
-\vspace{-0.5em}
+### 1a. Rotate a 32-bit integer left by `k` bits. Assume that `k` is less than 32.
 ```java
     int rotate (int x, int k) {
         
@@ -24,8 +22,7 @@ public class BitManips {
     }
 
 ```
-### 1b. Check if an integer is a multiple of 4 using only the & operator and equality checks. 
-\vspace{-0.5em}
+### 1b. Check if an integer is a multiple of 4 using only the `&` operator and equality checks. 
 ```java
     int isMultipleOfFour(int x) {
 
@@ -33,9 +30,8 @@ public class BitManips {
     }
 
 ```
-### 1c. Check if an integer is odd using only bit shifting and equality checks.
+### 1c. Check if an integer is odd <u>using only bit shifting and equality checks</u>.
 Assume that you do not know the number of bits in your number.
-\vspace{-0.5em}
 ```java
     int isOdd(int x) {
 
@@ -44,7 +40,6 @@ Assume that you do not know the number of bits in your number.
 
 ```
 ### 1d. Write a one-line expression equivalent to `x * 35` without using `*, /, or %`.
-\vspace{-0.5em}
 ```java
     int times35(int x) {
 
@@ -57,16 +52,14 @@ Assume that you do not know the number of bits in your number.
 
 
 
-
 ## 2. Lists
 
 ### 2a. `SList`s
 
-Write a method that, given an `SList`, an `int j`, and an `int k`, return elements `k`, `k+j`, `k+2*j`, ....
+Write a method that, given an `SList`, an `int` `j`, and an `int` `k`, return an `SList` with elements `k`, `k+j`, `k+2*j`, .... **Do not change the original list.**
 
-File: [`Slist.java`](code/Slist.java)
+File: [`Slist.java`](code/Slist.java) &middot; [solution](code-soln/Slist.java)
 
-\vspace{-0.5em}
 ```java
 public class SList {
     private SListNode head;
@@ -175,9 +168,8 @@ Note that `Collection` has no method implementation of its own. Java knows to lo
 ## 4. Static and dynamic types questions
 
 ### 4a. Spot the compile time errors. (There are four!)
-File: [`CompileTimeErrorTest.java`](code/CompileTimeErrorTest.java)
+File: [`CompileTimeErrorTest.java`](code/CompileTimeErrorTest.java) &middot; [solution](code-soln/CompileTimeErrorTest.java)
 
-\vspace{-0.5em}
 ```java
 public class CompileTimeErrorTest {
     public string howOld(age) {
@@ -193,23 +185,69 @@ public class CompileTimeErrorTest {
 ### 4b. Where is the runtime error?
 File: [`RuntimeErrorTest.java`](code/RuntimeErrorTest.java)
 
-\vspace{-0.5em}
 ```java
 public class RuntimeErrorTest {
     private Person p;
 
-    public Test() {
+    public RuntimeErrorTest() {
          String personName = p.getName();
          int nameLength = personName.length();
          System.out.println(nameLength);
      }
 
      public static void main(String[] args) {
-         Test t = new Test();
+         RuntimeErrorTest t = new RuntimeErrorTest();
      }
 }
 
 class Person {
     public String getName() {}
+}
+```
+
+
+
+
+## 5. Really hard inheritance question
+
+By the way, this is why you've always been told to never have public fields, only public methods.
+
+File: [`SpecialVariable.java`](code/SpecialVariable.java)
+
+```java
+class Variable {
+    public int value;
+    Variable(int value) {
+        this.value = value;
+    }
+    int getValue() {
+        return value;
+    }
+    void setValue(int value) {
+        this.value = value;
+    }
+}
+
+class SpecialVariable extends Variable {
+    public int value;
+    SpecialVariable(int value) {
+        super(value);
+        this.value = value;
+    }
+
+    public static void main(String[] args) {
+        Variable x = new SpecialVariable(1);
+        SpecialVariable y = new SpecialVariable(1);
+
+        x.value = 3;
+        y.value = 3;
+        System.out.println("x.value=: " + x.getValue());
+        System.out.println("y.value=: " + y.getValue());
+
+        x.setValue(4);
+        y.setValue(4);
+        System.out.println("x.setValue: " + x.getValue());
+        System.out.println("y.setValue: " + y.getValue());
+    }
 }
 ```
