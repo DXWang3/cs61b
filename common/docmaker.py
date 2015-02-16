@@ -60,6 +60,7 @@ class FileSegment(object):
 
     def to_md(self, env):
         result = ''
+        result += '\\vspace{-0.5em}\n'
         if self.soln and 'tex' in env.mode:
             result += '\n\\answerbegin\n\n'
         result += cat('```', self.lang, '\n', self.text, '```', '\n')

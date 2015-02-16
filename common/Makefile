@@ -5,7 +5,7 @@ PDF_PROB_BW := csm61b-$(WEEK).bw.pdf
 PDF_SOLN_BW := csm61b-$(WEEK)-soln.bw.pdf
 MD_PROB := readme.md
 MD_SOLN = readme-soln.md
-META := code/*.java code-soln/*.java Makefile ../common/docmaker.py ../common/docmaker_header.tex
+META := $(wildcard code/*.java) $(wildcard code-soln/*.java) $(wildcard img/*.*) Makefile ../common/docmaker.py ../common/docmaker_header.tex
 PRODUCTS := $(PDF_PROB) $(PDF_SOLN) $(PDF_PROB_BW) $(PDF_SOLN_BW) $(MD_PROB) $(MD_SOLN)
 INTERMEDIATES := $(PDF_PROB).md $(PDF_SOLN).md
 
@@ -31,6 +31,7 @@ $(PDF_SOLN).md: readme.src.md $(META)
 %.pdf: %.pdf.md
 	pandoc $< --out $@ \
 		--include-in-header ../common/docmaker_header.tex \
+		-fmarkdown-implicit_figures \
 		--latex-engine=xelatex \
 		-V mainfont='Helvetica' \
 		-V geometry:"top=1in, bottom=0.7in, left=1in, right=1in"
@@ -39,6 +40,7 @@ $(PDF_SOLN).md: readme.src.md $(META)
 	pandoc $< --out $@ \
 		--include-in-header ../common/docmaker_header.tex \
 		--no-highlight \
+		-fmarkdown-implicit_figures \
 		--latex-engine=xelatex \
 		-V mainfont='Helvetica' \
 		-V geometry:"top=1in, bottom=0.7in, left=1in, right=1in"
