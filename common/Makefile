@@ -31,6 +31,7 @@ $(PDF_SOLN).md: readme.src.md $(META)
 %.pdf: %.pdf.md
 	pandoc $< --out $@ \
 		--include-in-header ../common/docmaker_header.tex \
+		--highlight-style haddock \
 		-fmarkdown-implicit_figures \
 		--latex-engine=xelatex \
 		-V mainfont='Helvetica' \
