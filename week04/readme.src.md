@@ -121,3 +121,13 @@ Note that `Collection` has no method implementation of its own. Java knows to lo
 To get the car rolling!
 
 --- code java Vehicle.java
+
+--- begin soln
+Q1. Won't compile  
+Q2. 400  
+Q3. 400  
+Q4. 4, 1  
+Q5. 4, 2  
+Q6. It will print out "There is no room in the Trunk" once because of the third item.  
+Q7. It will print out "There is no room in the Trunk" three times because a Motorcycle has no trunk.  
+--- end soln

@@ -61,6 +61,15 @@ Write a method that, given an `SList`, an `int` `j`, and an `int` `k`, return an
 File: [`Slist.java`](code/Slist.java) &middot; [solution](code-soln/Slist.java)
 
 ```java
+class SListNode {
+    Object item; SListNode next;
+    SListNode(Object item, SListNode next) {
+        this.item = item; this.next = next;
+    }
+    SListNode(Object item) {
+        this(item, null);
+    }
+}
 public class SList {
     private SListNode head;
     public SList(SListNode head) {
@@ -77,25 +86,30 @@ public class SList {
 
 
 
-    }
 
-    public String toString() {
-        String result = "";
-        for (SListNode cur = head; cur != null; cur = cur.next)
-            result += cur.item.toString() + " ";
-        return result;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
 
-class SListNode {
-    Object item; SListNode next;
-    SListNode(Object item, SListNode next) {
-        this.item = item; this.next = next;
-    }
-    SListNode(Object item) {
-        this(item, null);
-    }
-}
+
 ```
 
 
@@ -306,3 +320,4 @@ What will happen after each of these snippets of code are compiled/run?
     v3.putInTrunk("Laptop");
     v3.putInTrunk("Shoes");
 ```
+
