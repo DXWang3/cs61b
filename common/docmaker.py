@@ -9,7 +9,7 @@ PDF_PROB_LINK_TEXT = 'Printable PDF'
 PDF_SOLN_LINK_TEXT = 'Solutions PDF'
 
 from subprocess import check_output
-PDF_PROB, PDF_SOLN, MD_PROB, MD_SOLN = check_output(['make', 'echo']).splitlines()
+PDF_PROB, PDF_SOLN, MD_PROB, MD_SOLN = check_output(['make', '-s', 'echo']).splitlines()
 
 
 
