@@ -1,7 +1,12 @@
 # CSM Berkeley 61B
 
+## For CSM Students
 
-## Related links
+Welcome to the CSM 61B repo! Click a `week` directory above to see CSM material from that week. You'll find links to the worksheets and solved worksheets.
+
+In addition, we try to make sure all the code we show you really works! Feel free to clone this repo and play around with the `.java` files you find -- once you fill in the answers (or copy the answers from the files in the `code-soln` directory), you should be able to compile and successfully run the code.
+
+### Related links
 
 - [CS 61B Website](http://berkeley-cs61b.github.io/public_html/)
 - [CSM Facebook](https://www.facebook.com/BerkeleyCSM)
@@ -9,27 +14,23 @@
 
 ## Technical information for contributors
 
-### About readmes
+### About docmaker
 
-Each subdirectory will contain a `readme.md` and `readme.pdf` that are automatically generated from the `readme.src/readme.src.md` file. Generate the files with:
+In each subdirectory, you'll find various `.md` and `.pdf` files with nearly the same content. These are all generated from the `readme.src.md` file and various `.java` files in `code` and `code-soln`.
 
-```shell
-cd readme.src
-make      # to make just readme.md
-# or
-make all  # to make readme.md and readme.pdf
-```
+A tool called **docmaker**, which exists in `/common/docmaker.py`, is used to help convert `readme.src.md` into the other files. Here are some workflows currently in use:
 
-`readme.pdf` is not included in the default target because generating a PDF from the same source twice will result in nonidentical PDFs, and Git will think changes were made.
+    readme.src.md  --(docmaker)-->  readme.md
+    readme.src.md  --(docmaker)-->  csm61b-weekXX.pdf.md  --(pandoc)-->  csm61b-weekXX.pdf
 
-`readme.md` is lowercase to make it easy to find among a sea of uppercamelcased `.java` files.
+You'll need this stuff installed in order to `make docs`:
+- [Pandoc], a popular document conversion tool (written by [one of our philosphy professors]!). On Mac, `brew install pandoc` should do the trick.
+- TeX. Pandoc relies on `pdflatex` to generate the actual PDFs. On Mac, the easiest way to install TeX is to install [Homebrew Cask] and then `brew cask install basictex`. (`brew cask install mactex` instead if you also want a whole suite of TeX apps installed; note that this install will take significantly longer to download.)
+- If you're on Windows, you'll also need to make sure you have Make and Python 2 installed.
 
-If you've modified only references files and not `readme.src.md`, you can force a remake by updating the modified time of `readme.src.md`:
-
-```shell
-touch readme.src.md
-make all
-```
+[Pandoc]: http://johnmacfarlane.net/pandoc/
+[one of our philosphy professors]: http://johnmacfarlane.net/
+[Homebrew Cask]: http://caskroom.io/
 
 
 ### About the `gh-pages` branch
