@@ -116,8 +116,8 @@ Note that `Collection` has no method implementation of its own. Java knows to lo
 
 --- newpage
 
-## 5. Really hard inheritance question
+## 5. Vroom Vroom!
 
-By the way, this is why you've always been told to never have public fields, only public methods.
+To get the car rolling!
 
---- code java SpecialVariable.java
+--- code java Vehicle.java
