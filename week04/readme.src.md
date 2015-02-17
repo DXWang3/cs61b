@@ -1,6 +1,3 @@
-**Note:** This is a preliminary version of the worksheet. It it almost complete.
-
-
 --- header
 
 ## 1. Bit Manipulation
@@ -122,12 +119,63 @@ To get the car rolling!
 
 --- code java Vehicle.java
 
---- begin soln
-Q1. Won't compile  
-Q2. 400  
-Q3. 400  
-Q4. 4, 1  
-Q5. 4, 2  
-Q6. It will print out "There is no room in the Trunk" once because of the third item.  
-Q7. It will print out "There is no room in the Trunk" three times because a Motorcycle has no trunk.  
---- end soln
+--- newpage soln
+
+**What will happen after each of these snippets of code are compiled/run?**
+
+### 5.1
+```java
+Vehicle v1 = new Vehicle(3,4,20,10);
+System.out.println("Range of v1: " + v1.range());
+```
+
+--- soln Won't compile
+
+### 5.2
+```java
+Vehicle v2 = new Car(20,20);
+System.out.println("Range of v2: " + v2.range());
+```
+
+--- soln `400`
+
+### 5.3
+```java
+Vehicle v3 = new Motorcycle(10,40);
+System.out.println("Range of v3: " + v3.range());
+```
+
+--- soln `400`
+
+### 5.4
+```java
+System.out.println("Number of seats of v2 " + v2.seats);
+System.out.println("Number of seats of v3 " + v3.seats);
+```
+
+--- soln `4`, `1`
+
+### 5.5
+```java
+System.out.println("Number of wheels of v2" + v2.wheels);
+System.out.println("Number of wheels of v3" + v3.wheels);
+```
+
+--- soln `4`, `2`
+
+### 5.6
+```java
+v2.putInTrunk("Backpack");
+v2.putInTrunk("Laptop");
+v2.putInTrunk("Shoes");
+```
+
+--- soln It will print out `There is no room in the Trunk` once because of the third item.
+
+### 5.7
+```java
+v3.putInTrunk("Backpack");
+v3.putInTrunk("Laptop");
+v3.putInTrunk("Shoes");
+```
+--- soln It will print out `There is no room in the Trunk` three times because a `Motorcycle` has no trunk.

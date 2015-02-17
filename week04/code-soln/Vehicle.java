@@ -52,11 +52,13 @@ class Motorcycle extends Vehicle {
 
 /* Fill this class in assuming that the trunkSize of a Truck is 5 */
 public class Truck extends Car {
+    // [ //
     public Truck(int fuel, int mpg) {
 
-
-
+        super(fuel, mpg);
+        this.trunkSize = 5;
 
 
     }
+    // ] //
 }

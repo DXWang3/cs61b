@@ -3,6 +3,9 @@ public class RuntimeErrorTest {
 
     public RuntimeErrorTest() {
         String personName = p.getName();
+        // [ //
+        //                  ^ p is null here and so has no .getName()
+        // ] //
         int nameLength = personName.length();
         System.out.println(nameLength);
      }

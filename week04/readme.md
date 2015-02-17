@@ -1,6 +1,3 @@
-**Note:** This is a preliminary version of the worksheet. It it almost complete.
-
-
 **[Printable PDF](http://csmberkeley.github.io/cs61b/week04/csm61b-week04.pdf)** &middot; **[Solutions PDF](http://csmberkeley.github.io/cs61b/week04/csm61b-week04-soln.pdf)**
 
 # CSM Berkeley 61B, Spring 2015: Week 4
@@ -197,20 +194,20 @@ public class CompileTimeErrorTest {
 ```
 
 ### 4b. Where is the runtime error?
-File: [`RuntimeErrorTest.java`](code/RuntimeErrorTest.java)
+File: [`RuntimeErrorTest.java`](code/RuntimeErrorTest.java) &middot; [solution](code-soln/RuntimeErrorTest.java)
 
 ```java
 public class RuntimeErrorTest {
     private Person p;
 
     public RuntimeErrorTest() {
-         String personName = p.getName();
-         int nameLength = personName.length();
-         System.out.println(nameLength);
+        String personName = p.getName();
+        int nameLength = personName.length();
+        System.out.println(nameLength);
      }
 
      public static void main(String[] args) {
-         RuntimeErrorTest t = new RuntimeErrorTest();
+        RuntimeErrorTest t = new RuntimeErrorTest();
      }
 }
 
@@ -226,7 +223,7 @@ class Person {
 
 To get the car rolling!
 
-File: [`Vehicle.java`](code/Vehicle.java)
+File: [`Vehicle.java`](code/Vehicle.java) &middot; [solution](code-soln/Vehicle.java)
 
 ```java
 import java.util.ArrayList;
@@ -239,7 +236,7 @@ public abstract class Vehicle {
     int trunkSize;
     ArrayList<Object> trunk;
 
-    public Vehicle(int seats, int wheels, int fuel, int mpg) { 
+    public Vehicle(int seats, int wheels, int fuel, int mpg) {
         this.seats = seats;
         this.wheels = wheels;
         this.fuel = fuel;
@@ -259,9 +256,9 @@ public abstract class Vehicle {
 
 class Car extends Vehicle {
     public Car(int fuel, int mpg) {
-        super(4, 4, fuel, mpg); 
+        super(4, 4, fuel, mpg);
         this.trunkSize = 2;
-    }      
+    }
 
     public void putInTrunk(Object item) {
         if (this.trunk.size() < this.trunkSize) {
@@ -269,55 +266,79 @@ class Car extends Vehicle {
         } else {
             super.putInTrunk(item);
         }
-    } 
+    }
 }
-
 
 class Motorcycle extends Vehicle {
     public Motorcycle(int fuel, int mpg) {
         super(1, 2, fuel, mpg);
-    }   
+    }
 }
 
 
 
-/* Fill this class in assuming that the trunkSize of a Truck is 5*/
+
+/* Fill this class in assuming that the trunkSize of a Truck is 5 */
 public class Truck extends Car {
-     public Truck() {
+    public Truck(int fuel, int mpg) {
 
-     }
+
+
+
+
+    }
 }
-
-
-What will happen after each of these snippets of code are compiled/run?
-        //Q1
-    Vehicle v1 = new Vehicle(3,4,20,10);
-    System.out.println("Range of v1: " + v1.range());
-
-    //Q2
-    Vehicle v2 = new Car(20,20);
-    System.out.println("Range of v2: " + v2.range());
-
-    //Q3
-    Vehicle v3 = new Motorcycle(10,40);
-    System.out.println("Range of v3: " + v3.range());
-    
-    //Q4
-    System.out.println("Number of seats of v2 " + v2.seats);
-    System.out.println("Number of seats of v3 " + v3.seats);
-
-    //Q5
-    System.out.println("Number of wheels of v2" + v2.wheels);
-    System.out.println("Number of wheels of v3" + v3.wheels);
-
-    //Q6
-    v2.putInTrunk("Backpack");
-    v2.putInTrunk("Laptop");
-    v2.putInTrunk("Shoes");
-
-    //Q7
-    v3.putInTrunk("Backpack");
-    v3.putInTrunk("Laptop");
-    v3.putInTrunk("Shoes");
 ```
 
+
+**What will happen after each of these snippets of code are compiled/run?**
+
+### 5.1
+```java
+Vehicle v1 = new Vehicle(3,4,20,10);
+System.out.println("Range of v1: " + v1.range());
+```
+
+
+### 5.2
+```java
+Vehicle v2 = new Car(20,20);
+System.out.println("Range of v2: " + v2.range());
+```
+
+
+### 5.3
+```java
+Vehicle v3 = new Motorcycle(10,40);
+System.out.println("Range of v3: " + v3.range());
+```
+
+
+### 5.4
+```java
+System.out.println("Number of seats of v2 " + v2.seats);
+System.out.println("Number of seats of v3 " + v3.seats);
+```
+
+
+### 5.5
+```java
+System.out.println("Number of wheels of v2" + v2.wheels);
+System.out.println("Number of wheels of v3" + v3.wheels);
+```
+
+
+### 5.6
+```java
+v2.putInTrunk("Backpack");
+v2.putInTrunk("Laptop");
+v2.putInTrunk("Shoes");
+```
+
+
+### 5.7
+```java
+v3.putInTrunk("Backpack");
+v3.putInTrunk("Laptop");
+v3.putInTrunk("Shoes");
+```
