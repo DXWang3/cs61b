@@ -53,7 +53,7 @@ Assume that you do not know the number of bits in your number.
 
 ### 2a. `SList`s
 
-Write a method that, given an `SList`, an `int` `j`, and an `int` `k`, return an `SList` with elements `k`, `k+j`, `k+2*j`, .... **Do not change the original list.**
+Write a method that, given an `SList`, an `int` `j`, and an `int` `k`, return an `SList` with elements at indexes `k`, `k+j`, `k+2*j`, .... **Do not change the original list.**
 
 File: [`Slist.java`](code/Slist.java) &middot; [solution](code-soln/Slist.java)
 

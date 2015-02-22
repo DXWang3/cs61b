@@ -27,7 +27,7 @@ This checks if `n` is a power of 2.
 
 ### 2a. `SList`s
 
-Write a method that, given an `SList`, an `int` `j`, and an `int` `k`, return an `SList` with elements `k`, `k+j`, `k+2*j`, .... **Do not change the original list.**
+Write a method that, given an `SList`, an `int` `j`, and an `int` `k`, return an `SList` with elements at indexes `k`, `k+j`, `k+2*j`, .... **Do not change the original list.**
 
 --- code java Slist.java
 
