@@ -53,50 +53,78 @@ if (use_linked_list) {
 }
 ```
 
+In the above example, assume `LinkedList` and `ArrayList` are both child classes of `List`.
+
 **static types** = the **declared** type = checked at **compile time**  
 We don't need to run the code to know that `l` is a `List`.
 
 **dynamic type** = the **actual** type = checked at **run time**  
 When we run the code, depending on the situation, `l` might either be a `LinkedList` or `ArrayList`.
 
+### Exercises
+
+What would Java do? Notes:
+
+- `HashSet` and `ArrayList` are both child classes of `Collection`.
+- `Collection` has an `add` and `size` method.
+- `ArrayList` additionally has a `sort` and `get` method.
+
 ```java
-// What would Java do?
 Collection c;
 if (use_set) {
     c = new HashSet();
 } else {
     c = new ArrayList();
 }
-
-// Example 1: works!
-c.isEmpty();  // works because Collection.isEmpty() exists
-c.size();     // works because Collection.size() exists
-
-// Example 2: compile time error
-c.sort();  // compile-time error: Collection.sort() doesn't exist
-c.get(0);  // compile-time error: Collection.get(int) doesn't exist
 ```
+
+### 3.1
+
+```java
+c.isEmpty();
+c.size();
+```
+
+--- begin soln
+These will correctly compile and run because `Collection.isEmpty()` and `Collection.size()` exist.
+--- end soln
+
+--- newpage soln
+
+### 3.2
+
+```java
+c.sort();
+c.get(0);
+```
+
+--- begin soln
+These will not compile because `Collection.sort()` and `Collection.get(int)` do not exist.
 
 Static types are like guarantees or agreements. The declaration `Collection c` means that `c` is guaranteed to have `Collection`'s methods, including `isEmpty()` and `size()`. Even though `ArrayList` has some additional methods like `sort()` and `get(int)`, there was no agreement that `c` would be an `ArrayList`, so you can't use these methods. Java does this to prevent you from calling methods that might not exist at runtime -- for example, what if `c` happens to be a `HashSet` and you called `c.sort()`?
 
-Java follows simple rules (think: "Java is dumb"). Even when it's clear to you that `c` here is definitely an `ArrayList`, you still have to declare it as such. That is,
-
+Java follows simple rules (think: "Java is dumb"). Even when it's clear to you that `c` here is definitely an `ArrayList`, you still have to declare it as such. That is, the following code:
 ```java
 Collection c = new ArrayList();
 c.sort();
 ```
-
 will still fail at compile time. This is not necessarily a bad thing! When I declare `c` to be a `Collection` here, it kind of means I'm saying "I just want a `Collection`, it'll be an `ArrayList` here but I don't want to do any `ArrayList`-specific things."
+--- end soln
+
+### 3.3
 
 ```java
-// Example 3: works, but has different results
 c.add(1);
 c.add(1);
 c.size();  // Will this equal 1 or 2?
 ```
 
-Note that `Collection` has no method implementation of its own. Java knows to look at the methods for `HashSet` or `ArrayList`, depending on what the dynamic type of `c` is.
+--- begin soln
+Will the third line give 1 or 2?  
+If `c` is an `ArrayList`, then `c.size()` would be 2. If `c` is an `HashSet`, then `c.size()` would be 1.
 
+Note that `Collection` has no method implementation of its own. Java knows to look at the methods for `HashSet` or `ArrayList`, depending on what the dynamic type of `c` is.
+--- end soln
 
 
 --- newpage

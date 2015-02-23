@@ -1,7 +1,7 @@
 public class BitManips {
 
     // -- -- --
-    int rotate (int x, int k) {
+    int rotateLeft(int x, int k) {
         
         return                                                 ;
     }
